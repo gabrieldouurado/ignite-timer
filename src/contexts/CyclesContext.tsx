@@ -7,7 +7,6 @@ import {
 } from 'react'
 import { Cycle, CyclesReducer } from '../reducers/cycles/reducer'
 import {
-  ActionTypes,
   addNewCycleAction,
   interruptCurrentCycleAction,
   markCurrentCycleAdFinishedAction,
@@ -45,22 +44,15 @@ export function CyclesContextProvider({
       cycles: [],
       activeCycleId: null,
     },
-    () => {
+    (initialState) => {
       const storedStateAdJSON = localStorage.getItem(
         '@ignte-time:cycles-state-1.0.0',
       )
       if (storedStateAdJSON) {
         return JSON.parse(storedStateAdJSON)
-      } else {
-        const stateInicializer = {
-          cycles: [],
-          activeCycleId: null,
-        }
-        localStorage.setItem(
-          '@ignte-time:cycles-state-1.0.0',
-          JSON.stringify(stateInicializer),
-        )
       }
+
+      return initialState
     },
   )
 
